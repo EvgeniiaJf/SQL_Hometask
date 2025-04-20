@@ -35,7 +35,7 @@ values
 create table if not exists ALBUM (
 AlbumID serial primary key,
 AlbumName VARCHAR(100) not null,
-YearIssue date INTEGER CHECK(YearIssue BETWEEN 1900 AND 2999)
+YearIssue INTEGER CHECK(YearIssue BETWEEN 1900 AND 2999)
 );
 
 INSERT INTO Album (AlbumID, AlbumName, YearIssue)
@@ -57,7 +57,7 @@ values
 (3, 3),
 (4, 4);
 
-create table if not exists Track
+create table if not exists Track (
 TrackID serial primary key,
 TrackName VARCHAR(200),
 Duration time CHECK(Duration > 00:00:00),
@@ -76,7 +76,7 @@ values
 create table if not exists Collection (
 CollectionID serial primary key,
 CollectionName VARCHAR(100),
-YearIssue date INTEGER CHECK(YearIssue BETWEEN 1900 AND 2999)
+YearIssue INTEGER CHECK(YearIssue BETWEEN 1900 AND 2999)
 );
 
 INSERT INTO Collection (CollectionID, CollectionName, YearIssue)

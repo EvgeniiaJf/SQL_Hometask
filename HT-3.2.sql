@@ -2,11 +2,13 @@
 
 select TrackName, Duration
 from Track
-where MAX(Duration);
+	WHERE Duration = (
+	SELECT MAX(Duration) FROM Track
+);
 
 select TrackName
 from Track
-where Duration>00:03:30;
+where Duration>='00:03:30';
 
 select CollectionName
 from Collection
@@ -18,11 +20,14 @@ where ArtistName not like '% %';
 
 select TrackName
 from Track
-where TrackName like '%мой%' or '%my%';
+where TrackName LIKE 'мой %' or 'my %'
+OR TrackName LIKE ' мой' OR 'my'
+OR TrackName LIKE ' мой ' OR ' my '
+OR TrackName 'мой' OR 'my';
 
 #Задание3
 
-select g.GenreName, count(distinct ga.'ArtistID') as ArtistCount
+select g.GenreName, count(distinct ga."ArtistID") as ArtistCount
 from Genre as g
 join GenreArtist as ga on g.GenreID = ga.GenreID
 group by g.GenreName;
@@ -59,19 +64,24 @@ where ar.ArtistName = 'John Coltrane';
 #Задание4
 
 select distinct AlbumName
-from Album as a
-join ArtistAlbum on Album = a.ArtistAlbum
-join GenreArtist on ArtistAlbum = GenreArtist.ArtistAlbum
-group by AlbumName, AlbumID
+from Album
+join ArtistAlbum on Album.AlbumID = ArtistAlbum.AlbumID
+JOIN ArtistAlbum ON Artist.ArtistID = ArtistAlbum.ArtistID
+join GenreArtist on Artist.ArtistID = GenreArtist.ArtistID
+group by ArtistID, AlbumName, AlbumID
 having count(distinct GenreArtist) > 1;
 
 select TrackName
 from Track
-join TrackCollection on Track.TrackID = TrackCollecrion.TrackID
+join TrackCollection on Track.TrackID = TrackCollection.TrackID
 where TrackCollecrion.TrackID in null;
 
 select distinct ArtistName
-from Track
-join Album on Track.AlbumID = Album.AlbumID
-join Artist on ArtistAlbum.ArtistID = Artist.ArtistID
-where Duraton = (select min(Duration) from Track);
+from Artist
+JOIN Artist ON ArtistAlbum.ArtistID = Artist.ArtistID
+join ArtistAlbum ON Album.AlbumID = ArtistAlbum.ArtistID
+join Album ON Track.AlbumID = Album.AlbumID
+where Duraton = 
+	(SELECT MIN(Duration) FROM Track
+		JOIN Track ON ArtistAlbum.AlbumID = Track.AlbumID
+);
