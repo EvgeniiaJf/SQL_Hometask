@@ -21,8 +21,8 @@ where ArtistName not like '% %';
 select TrackName
 from Track
 where TrackName LIKE 'мой %' or 'my %'
-OR TrackName LIKE ' мой' OR 'my'
-OR TrackName LIKE ' мой ' OR ' my '
+OR TrackName LIKE '% мой' OR '% my'
+OR TrackName LIKE '% мой %' OR '% my %'
 OR TrackName 'мой' OR 'my';
 
 #Задание3

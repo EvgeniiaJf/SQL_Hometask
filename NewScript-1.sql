@@ -31,7 +31,7 @@ AlbumID INTEGER references Album(AlbumID)
 create table if not exists Track (
 TrackID serial primary key,
 TrackName VARCHAR(200),
-Duration time CHECK(Duration > 00:00:00),
+Duration INTEGER CHECK(Duration > 0),
 AlbumID INTEGER references Album(AlbumID)
 );
 
